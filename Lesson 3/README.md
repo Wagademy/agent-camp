@@ -333,14 +333,19 @@ These tools offer various features such as model management, optimized inference
 
 Tools like [GPT4All](https://github.com/nomic-ai/gpt4all) simplify the process of loading models and running inference tasks, even for non-developers. These tools abstract away many configurations, leaving room for basic settings such as CPU thread usage, device selection, and simple sampling options.
 
+### Running a local model with GPT4All
+
+- Download GPT4All from their [official website](https://www.nomic.ai/gpt4all)
+- Install the correct version for your operating system
+- Run the application
+- Download models from the web using the `Models` tab
+- Chat with the local model using the `Chat` tab
+
 ## Downloading Models
 
 The default models packed with your model loaders are a good starting point for experimentation. But if you want to experiment it further, you can download open-source models from the web, from places like the [Hugging Face Model Hub](https://huggingface.co/models) and others.
 
 - Notable accounts for model exploration and download:
-  - [Tom Jobbins](https://huggingface.co/TheBloke)
-  - [WizardLM](https://huggingface.co/WizardLM)
-  - [EleutherAI](https://huggingface.co/EleutherAI)
   - [Mistral](https://huggingface.co/mistralai)
   - [Stability AI](https://huggingface.co/stabilityai)
   - [OpenAI](https://huggingface.co/openai)
@@ -351,6 +356,14 @@ The default models packed with your model loaders are a good starting point for 
   - [xAI](https://huggingface.co/xai-org)
   - [ByteDance](https://huggingface.co/ByteDance)
   - [Salesforce](https://huggingface.co/salesforce)
+  - [Anthropic](https://huggingface.co/anthropic)
+  - [Databricks](https://huggingface.co/databricks)
+  - [NVIDIA](https://huggingface.co/nvidia)
+  - [Cohere](https://huggingface.co/cohere)
+  - [Hugging Face](https://huggingface.co/huggingface)
+  - [EleutherAI](https://huggingface.co/EleutherAI)
+  - [BigCode](https://huggingface.co/bigcode)
+  - [BigScience](https://huggingface.co/bigscience)
 - Model sizes indicating data usage and processing:
   - 1B: Uses 1 billion parameters, suitable for low-resource devices, can't handle complex tasks
   - 7B: Uses 7 billion parameters, suitable for mid-resource devices, can handle low complexity tasks

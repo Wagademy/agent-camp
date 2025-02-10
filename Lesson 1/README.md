@@ -260,13 +260,13 @@ Let's start this exercise by setting up the development environment according to
 ### Linux Setup
 
 - Open terminal (Ctrl+Alt+T)
-- Check if Python is installed: `python3 --version`
+- Check if Python is installed: `python --version`
 - If not installed:
 
   ```bash
   sudo apt update
-  sudo apt install python3
-  sudo apt install python3-pip
+  sudo apt install python
+  sudo apt install python-pip
   ```
 
 ### Windows Setup

@@ -162,47 +162,8 @@ Finally, we'll clone and run a sample project from Vercel, using it as a foundat
   - Branching and merging
 - Creating a Web Application project
 - Utilizing starter-kits and frameworks
-
-## Coding Using Next.js
-
-- Framework Structure
-  - Recent versions of Next.js allow project creation with two major structures: [Pages router](https://nextjs.org/docs/pages/building-your-application/routing/pages-and-layouts) or [App router](https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts)
-    - The Pages router is the more common structure, where each file in the `pages` directory corresponds to a route in the application
-    - The App router is a more recent and slightly more complex structure, where routes are governed by a JavaScript API instead of being implicitly defined by the file system
-- Utilizing TypeScript and TSX
-  - [TypeScript](https://www.typescriptlang.org/docs/) is a superset of JavaScript that adds static typing, providing type checking and code completion features that help catch errors early in the development process
-    - TypeScript is a powerful tool for building large-scale applications, enforcing strict type checking and providing a more robust development experience
-  - [TSX](https://www.typescriptlang.org/docs/handbook/jsx.html) is a syntax extension for TypeScript allowing developers to write JSX (JavaScript XML) in TypeScript files
-    - JSX is a syntax extension for JavaScript enabling developers to write HTML-like code directly in their JavaScript files
-    - TSX can be used to create [React Components](https://react.dev/learn/typescript) that are processed and rendered dynamically when the application is compiled/bundled for deployment
-- Creating Components
-  - Components are the building blocks of a React application, representing reusable and independent parts of the user interface
-    - Components can be functional or class-based, containing their own logic, state, and lifecycle methods
-  - Components can be created using the `function` keyword or the `class` keyword
-    - Functional components are simpler and more concise, while class-based components offer more features and flexibility
-  - Components can receive data through props, passed from parent components
-    - Props are read-only and cannot be modified by the component
-  - Components can also have internal state, managed using the `useState` hook
-    - State allows components to store and update data locally
-- Using Hooks
-  - [Hooks](https://react.dev/reference/react/hooks) are functions allowing functional components to use state and other React features
-    - Hooks provide a way to reuse stateful logic across components, facilitating the sharing and management of stateful logic in a React application
-  - Common hooks include:
-    - `useState`: Allows components to manage local state
-    - `useEffect`: Enables components to perform side effects, such as data fetching and DOM manipulation
-    - `useContext`: Allows components to access context values
-    - `useRef`: Enables components to create mutable references to DOM elements
-  - There are [recommended rules](https://react.dev/reference/rules/rules-of-hooks) for using hooks in React applications to avoid bugs and ensure proper functionality
-- Implementing Tailwind CSS
-  - [Tailwind CSS](https://tailwindcss.com/docs) is a utility-first CSS framework streamlining the styling process by providing pre-defined utility classes for direct use in HTML markup
-    - Tailwind CSS is designed to be highly customizable and extendable, allowing developers to create unique and responsive designs without writing custom CSS
-  - Tailwind CSS classes can be [applied directly to HTML elements](https://tailwindcss.com/docs/utility-first) for styling
-    - Classes are used to apply styles such as colors, fonts, spacing, and layout to elements
-    - These classes can be [reused for many elements](https://tailwindcss.com/docs/reusing-styles) and combined to create complex layouts and designs
-  - Tailwind CSS provides utility classes for [responsive design](https://tailwindcss.com/docs/responsive-design), enabling developers to create layouts that adapt to different screen sizes
-    - Responsive classes can be used to apply different styles based on screen size, such as hiding elements on mobile devices or changing the layout on larger screens
-  - You can [customize your styles](https://tailwindcss.com/docs/adding-custom-styles) in Tailwind CSS by editing the configuration file and adding custom utility classes
-    - Customizing Tailwind CSS allows you to create a unique design system for your entire application and tailor the framework to your specific needs
+- NextJS framework
+  - [NextJS](https://nextjs.org/docs) is a React framework for building server-side rendered (SSR) and static web applications using React
 
 ## Building an Application Using Next.js
 
@@ -364,56 +325,52 @@ Finally, we'll clone and run a sample project from Vercel, using it as a foundat
     }
     ```
 
+## Coding Using Next.js
+
+- Framework Structure
+  - Recent versions of Next.js allow project creation with two major structures: [Pages router](https://nextjs.org/docs/pages/building-your-application/routing/pages-and-layouts) or [App router](https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts)
+    - The Pages router is the more common structure, where each file in the `pages` directory corresponds to a route in the application
+    - The App router is a more recent and slightly more complex structure, where routes are governed by a JavaScript API instead of being implicitly defined by the file system
+- Utilizing TypeScript and TSX
+  - [TypeScript](https://www.typescriptlang.org/docs/) is a superset of JavaScript that adds static typing, providing type checking and code completion features that help catch errors early in the development process
+    - TypeScript is a powerful tool for building large-scale applications, enforcing strict type checking and providing a more robust development experience
+  - [TSX](https://www.typescriptlang.org/docs/handbook/jsx.html) is a syntax extension for TypeScript allowing developers to write JSX (JavaScript XML) in TypeScript files
+    - JSX is a syntax extension for JavaScript enabling developers to write HTML-like code directly in their JavaScript files
+    - TSX can be used to create [React Components](https://react.dev/learn/typescript) that are processed and rendered dynamically when the application is compiled/bundled for deployment
+- Creating Components
+  - Components are the building blocks of a React application, representing reusable and independent parts of the user interface
+    - Components can be functional or class-based, containing their own logic, state, and lifecycle methods
+  - Components can be created using the `function` keyword or the `class` keyword
+    - Functional components are simpler and more concise, while class-based components offer more features and flexibility
+  - Components can receive data through props, passed from parent components
+    - Props are read-only and cannot be modified by the component
+  - Components can also have internal state, managed using the `useState` hook
+    - State allows components to store and update data locally
+- Using Hooks
+  - [Hooks](https://react.dev/reference/react/hooks) are functions allowing functional components to use state and other React features
+    - Hooks provide a way to reuse stateful logic across components, facilitating the sharing and management of stateful logic in a React application
+  - Common hooks include:
+    - `useState`: Allows components to manage local state
+    - `useEffect`: Enables components to perform side effects, such as data fetching and DOM manipulation
+    - `useContext`: Allows components to access context values
+    - `useRef`: Enables components to create mutable references to DOM elements
+  - There are [recommended rules](https://react.dev/reference/rules/rules-of-hooks) for using hooks in React applications to avoid bugs and ensure proper functionality
+- Implementing Tailwind CSS
+  - [Tailwind CSS](https://tailwindcss.com/docs) is a utility-first CSS framework streamlining the styling process by providing pre-defined utility classes for direct use in HTML markup
+    - Tailwind CSS is designed to be highly customizable and extendable, allowing developers to create unique and responsive designs without writing custom CSS
+  - Tailwind CSS classes can be [applied directly to HTML elements](https://tailwindcss.com/docs/utility-first) for styling
+    - Classes are used to apply styles such as colors, fonts, spacing, and layout to elements
+    - These classes can be [reused for many elements](https://tailwindcss.com/docs/reusing-styles) and combined to create complex layouts and designs
+  - Tailwind CSS provides utility classes for [responsive design](https://tailwindcss.com/docs/responsive-design), enabling developers to create layouts that adapt to different screen sizes
+    - Responsive classes can be used to apply different styles based on screen size, such as hiding elements on mobile devices or changing the layout on larger screens
+  - You can [customize your styles](https://tailwindcss.com/docs/adding-custom-styles) in Tailwind CSS by editing the configuration file and adding custom utility classes
+    - Customizing Tailwind CSS allows you to create a unique design system for your entire application and tailor the framework to your specific needs
+
 ## Implementing AI Features in Applications
 
 ### OpenAI APIs
 
-- API Functionality
-  - API calls enable remote execution of operations on servers over the internet, offering several advantages:
-    - Leveraging substantial computational power not available on local devices
-    - Processing large datasets that exceed local storage capabilities
-    - Handling sensitive data (e.g., credentials, personal information) securely on remote servers
-    - Protecting sensitive operations from client-side exposure
-- Interacting with APIs over HTTP
-  - APIs serve as essential interfaces for accessing and manipulating web service resources
-  - In Python, the widely-used 'requests' library facilitates HTTP interactions:
-    - Constructing HTTP requests:
-      - Specify request method (GET, POST, PUT, DELETE, etc.)
-      - Define API endpoint URL
-      - Example: `response = requests.get('https://api.example.com/data')`
-    - Processing API responses:
-      - Retrieve data from response body
-      - Access metadata (HTTP status codes, headers)
-      - Example: `print(response.text)`
-    - Implementing authentication:
-      - Include credentials in request headers
-      - Example:
-
-        ```python
-        headers = {'Authorization': 'Bearer YOUR_ACCESS_TOKEN'}
-        response = requests.get('https://api.example.com/data', headers=headers)
-        ```
-
-    - Handling errors:
-      - Check response status codes
-      - Implement appropriate error handling
-      - Example:
-
-        ```python
-        if response.status_code == 200:
-            print('Request was successful')
-        else:
-            print('Error:', response.status_code)
-        ```
-
-  - Benefits of API-based processing:
-    - Execution of resource-intensive tasks on powerful remote servers
-    - Secure handling of sensitive data without local exposure
-    - Efficient transfer of processed results to the client
-
-This approach enables developers to leverage remote computational resources and data securely, while maintaining a lightweight client-side application.
-
-- OpenAI API
+- OpenAI as an AI Inference Provider
   - The OpenAI API provides access to a variety of powerful artificial intelligence models trained on large datasets, including text generation, image generation, and natural language recognition models. Developers can integrate AI capabilities into their applications, websites, and systems by accessing models through specific API endpoints.
   - Since the use of this computation is billed, OpenAI needs to identify and authorize (or deny) each person/agent making requests to the API
     - This is achieved by assigning a unique **secret key** or set of keys, which are specific to each user and must be included in every request made to the API
