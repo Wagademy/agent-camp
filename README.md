@@ -50,4 +50,4 @@ We strongly encourage students to collaborate on group projects, share discoveri
 
 ## Support
 
-For any questions or assistance, please don't hesitate to reach out to the instructors and fellow students in our [Telegram Group](https://t.me/vmineracademy).
+For any questions or assistance, please don't hesitate to reach out to the instructors and fellow students in our [Telegram Group](https://dabl.chat).
