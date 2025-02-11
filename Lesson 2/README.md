@@ -137,6 +137,71 @@ Finally, we'll clone and run a sample project from Vercel, using it as a foundat
 
 > You can learn more about the syntax and features of HTML at the [MDN Web Documentation](https://developer.mozilla.org/en-US/docs/Web/HTML) or with free tutorials like [W3Schools](https://www.w3schools.com/html/)
 
+## AI Code Generation
+
+To expedite frontend code creation for our web application, we can leverage Generative AI Tools for code generation.
+
+Tools like ChatGPT and Copilot can not only enhance developer efficiency but also generate substantial code segments that serve as starting points for software projects.
+
+While the accuracy of these tools isn't perfect, and the generated code may require adjustments and improvements, it often provides a valuable foundation for developers to "understand" feature or functionality implementation.
+
+Some models are specifically designed and/or optimized for code generation. Unlike the general-purpose LLMs we've been using, these models are trained on code repositories and can generate code snippets based on input prompts. Users still need to integrate these snippets to form complete code, but the generated content can serve as a solid starting point for projects or new features. Examples include [Codex](https://openai.com/index/openai-codex/) from OpenAI, [CodeT5](https://github.com/salesforce/CodeT5) from Salesforce, and [Code Llama](https://ai.meta.com/blog/code-llama-large-language-model-coding/) from Meta.
+
+Other models/tools are designed for versatility, capable of generating code snippets, providing instructions, explaining code, suggesting fixes, proposing tests, adding documentation, and more. These models can detect code context and generate the most appropriate suggestions based on user requests. Examples include [Copilot](https://copilot.github.com/) (powered by the Codex model), [TabNine](https://www.tabnine.com/), and [Replit](https://replit.com/). These tools can generate code snippets based on your IDE context while coding.
+
+Some tools are designed to automatically generate and assemble entire applications based on simple descriptions of desired layout and functionality. These can be particularly helpful for developers creating frontend code for web applications.
+
+A standout tool for this purpose is [v0](https://v0.dev/) from Vercel. `v0` is a web tool that generates frontend code based on simple descriptions of desired layout and functionality.
+
+Another valuable tool is [MakeReal](https://makereal.tldraw.com/) from TLDraw. `MakeReal` is a web tool that generates frontend code based on simple descriptions and rough sketches of desired layout and elements.
+
+These tools can significantly assist developers in creating frontend code for web applications and can be utilized to generate code for this lesson's exercises.
+
+> Be advised that the generated code may require significant adjustments and improvements to function properly. Never rely blindly on AI-generated code.
+
+## Code Generation Models
+
+- Training and fine-tuning techniques for code generation
+- Instruction-following capabilities
+- Retrieval and context evaluation methodologies
+- Optimizing behavior through parameter adjustments and constraints
+
+### Code Generation Examples
+
+- [CodeLlama](https://ai.meta.com/blog/code-llama-large-language-model-coding/)
+- [Copilot](https://copilot.github.com/)
+- [Cursor](https://cursor.com/)
+- [Replit AI](https://replit.com/ai)
+- [Q Developer](https://aws.amazon.com/q/developer/)
+- [Cody](https://sourcegraph.com/docs)
+- [Devin](https://www.cognition-labs.com/blog), the AI software engineer
+
+## Peer programming with AI
+
+- AI [features](https://www.cursor.com/features) of the [Cursor IDE](https://cursor.com/)
+  - Code generation
+  - Code editor
+  - Rewriting and fixing code automatically
+  - Enhanced predictions
+  - Chat with your code
+  - Link web documentation while chatting
+- Setup
+  - Download and install
+    - May require some manual setup for Linux and MacOS
+  - Create a free account
+- Recommended settings
+  - Tweak keyboard shortcuts
+  - Import extensions and settings from VSCode
+  - Privacy mode
+  - Configuring models
+- Usage
+  - Fixing issues
+  - Generating code
+  - Chatting with your code
+  - Using the chat
+  - Generating commit messages
+  - Generating documentation and test scripts based on other files
+
 ## Setting Up a Web Development Environment
 
 - Essential tools for Web Development
@@ -653,72 +718,7 @@ Finally, we'll clone and run a sample project from Vercel, using it as a foundat
 
     - If you face errors due to the API keys, check the [Environment Variables](https://vercel.com/docs/deployments/environments) section of the project settings
 
-## AI Code Generation
-
-To expedite frontend code creation for our web application, we can leverage Generative AI Tools for code generation.
-
-Tools like ChatGPT and Copilot can not only enhance developer efficiency but also generate substantial code segments that serve as starting points for software projects.
-
-While the accuracy of these tools isn't perfect, and the generated code may require adjustments and improvements, it often provides a valuable foundation for developers to "understand" feature or functionality implementation.
-
-Some models are specifically designed and/or optimized for code generation. Unlike the general-purpose LLMs we've been using, these models are trained on code repositories and can generate code snippets based on input prompts. Users still need to integrate these snippets to form complete code, but the generated content can serve as a solid starting point for projects or new features. Examples include [Codex](https://openai.com/index/openai-codex/) from OpenAI, [CodeT5](https://github.com/salesforce/CodeT5) from Salesforce, and [Code Llama](https://ai.meta.com/blog/code-llama-large-language-model-coding/) from Meta.
-
-Other models/tools are designed for versatility, capable of generating code snippets, providing instructions, explaining code, suggesting fixes, proposing tests, adding documentation, and more. These models can detect code context and generate the most appropriate suggestions based on user requests. Examples include [Copilot](https://copilot.github.com/) (powered by the Codex model), [TabNine](https://www.tabnine.com/), and [Replit](https://replit.com/). These tools can generate code snippets based on your IDE context while coding.
-
-Some tools are designed to automatically generate and assemble entire applications based on simple descriptions of desired layout and functionality. These can be particularly helpful for developers creating frontend code for web applications.
-
-A standout tool for this purpose is [v0](https://v0.dev/) from Vercel. `v0` is a web tool that generates frontend code based on simple descriptions of desired layout and functionality.
-
-Another valuable tool is [MakeReal](https://makereal.tldraw.com/) from TLDraw. `MakeReal` is a web tool that generates frontend code based on simple descriptions and rough sketches of desired layout and elements.
-
-These tools can significantly assist developers in creating frontend code for web applications and can be utilized to generate code for this lesson's exercises.
-
-> Be advised that the generated code may require significant adjustments and improvements to function properly. Never rely blindly on AI-generated code.
-
-## Code Generation Models
-
-- Training and fine-tuning techniques for code generation
-- Instruction-following capabilities
-- Retrieval and context evaluation methodologies
-- Optimizing behavior through parameter adjustments and constraints
-
-### Code Generation Examples
-
-- [CodeLlama](https://ai.meta.com/blog/code-llama-large-language-model-coding/)
-- [Copilot](https://copilot.github.com/)
-- [Cursor](https://cursor.com/)
-- [Replit AI](https://replit.com/ai)
-- [Q Developer](https://aws.amazon.com/q/developer/)
-- [Cody](https://sourcegraph.com/docs)
-- [Devin](https://www.cognition-labs.com/blog), the AI software engineer
-
-## Peer programming with AI
-
-- AI [features](https://www.cursor.com/features) of the [Cursor IDE](https://cursor.com/)
-  - Code generation
-  - Code editor
-  - Rewriting and fixing code automatically
-  - Enhanced predictions
-  - Chat with your code
-  - Link web documentation while chatting
-- Setup
-  - Download and install
-    - May require some manual setup for Linux and MacOS
-  - Create a free account
-- Recommended settings
-  - Tweak keyboard shortcuts
-  - Import extensions and settings from VSCode
-  - Privacy mode
-  - Configuring models
-- Usage
-  - Fixing issues
-  - Generating code
-  - Chatting with your code
-  - Using the chat
-  - Generating commit messages
-  - Generating documentation and test scripts based on other files
-
-## Utilizing Sample Projects and Templates
+## Making Use of Sample Projects and Templates
 
 - Leveraging existing resources
   - Starting from scratch vs. using templates or sample projects
