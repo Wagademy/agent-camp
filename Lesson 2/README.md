@@ -343,6 +343,8 @@ These tools can significantly assist developers in creating frontend code for we
 12. Create some dynamic content in the page:
 
     ```tsx
+    "use client";
+
     export default function Home() {
       const [name, setName] = useState("");
       const [showGreeting, setShowGreeting] = useState(false);
