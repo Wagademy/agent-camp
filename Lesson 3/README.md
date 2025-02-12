@@ -1,12 +1,12 @@
-# Lesson 03: Deep Dive into LLMs
+# Lesson 03: Deep Dive into LLMs and Introduction to Decentralized Computing
 
 In this lesson, we will dive deeper into the capabilities of LLMs and how to use them to build more complex applications. We are going to study more of what is happening behind the scenes of the LLMs and how to avoid their common pitfalls.
 
-In this lesson we are going to cover an overview about Machine Learning and how the GPT models can perform tasks like reasoning, planning, and more using the LLM's capabilities.
+We are going to cover important aspects of the GPTs components, and how the _Transformers_ play a crucial role in the GPTs architecture.
 
-We are going to cover important aspects of the GPTs architectures, learning how to handle context limitations and how to use the prompt engineering to improve the results.
+In this lesson we will see the pros and cons of using online API providers for AI Inference, and w will cover how to run local models in your own hardware using some helpful tools like Ollama and GPT4All.
 
-By the end of the lesson we will cover how to run local models in your own hardware using some helpful tools like Ollama and GPT4All.
+By the end we are going to see how decentralized computing may solve some real problems of the AI industry, and how we can use it to build more reliable and scalable applications.
 
 ## Prerequisites
 
@@ -42,48 +42,6 @@ By the end of the lesson we will cover how to run local models in your own hardw
   - To run API Commands on the platform, set up [billing](https://platform.openai.com/account/billing/overview) and add at least **5 USD** credits to your account
 - Create an account at [Hugging Face](https://huggingface.co/)
 - Create an account at [Google Colab](https://colab.research.google.com)
-
-  ## Introduction to Machine Learning
-
-- How can a computer "learn"?
-- [Machine learning](https://en.wikipedia.org/wiki/Machine_learning) is a broad terminology for a set of algorithms that can learn from and/or make predictions on data
-- There are many forms of Machine Learning:
-  - **[Supervised learning](https://en.wikipedia.org/wiki/Supervised_learning)**: The most common form of machine learning, which consists of learning a function that maps an input to an output based on example input-output pairs
-    - Requires a **training dataset** with input-output pairs
-    - The algorithm learns from the dataset and can make/extrapolate predictions on new data
-  - **[Unsupervised learning](https://en.wikipedia.org/wiki/Unsupervised_learning)**: A type of machine learning that looks for previously undetected patterns in a dataset with no pre-existing labels
-    - Requires a **training dataset** with input data only
-    - The algorithm learns from the dataset and can make predictions on new data
-  - **[Reinforcement learning](https://en.wikipedia.org/wiki/Reinforcement_learning)**: A type of machine learning that enables an agent to learn in an interactive environment by trial and error using feedback from its own actions and experiences
-    - Requires a **training dataset** with input data and feedback
-    - The algorithm learns from the dataset and can make predictions on new data
-  - Other models and techniques that can be applied/extended:
-    - Semi-supervised learning
-    - Self-supervised learning
-    - Multi-task learning
-    - Transfer learning
-    - Meta learning
-    - Online learning
-    - Active learning
-    - Ensemble learning
-    - Bayesian learning
-    - Inductive learning
-    - Instance-based learning
-    - And many others
-
-These models have been evolving and improving over the years, aiming to output some form of "intelligence" from the data, mimicking human-like behavior.
-
-- For example, some advanced Machine Learning algorithms use [Neural Networks](https://en.wikipedia.org/wiki/Neural_network) to compute complex functions and make predictions on data in ways that a "normal" program would take billions or more lines of code to accomplish.
-
-This "brain-like" computational approach has been used to extend the capabilities of AI exponentially, far beyond what traditional computing could achieve.
-
-- An example of this is [Deep Learning](https://en.wikipedia.org/wiki/Deep_learning), a subset of machine learning that uses neural networks with many [layers](https://en.wikipedia.org/wiki/Artificial_neural_network#Deep_neural_networks) to learn from data and make much more complex predictions.
-- Neural Networks like [CNNs](https://en.wikipedia.org/wiki/Convolutional_neural_network) and [RNNs](https://en.wikipedia.org/wiki/Recurrent_neural_network) have been used to power many AI applications for tasks such as image and text recognition and generation, computer vision, and many others.
-- Currently (as of mid 2024), the most advanced form of Deep Learning is the [Transformers](<https://en.wikipedia.org/wiki/Transformer_(machine_learning_model)>) architecture, which has been used to power many AI applications, including the GPT models.
-  - Unlike traditional neural networks, transformers can process data in parallel, making them much faster and more efficient.
-  - This technical advancement, aligned with favorable market/investment conditions in recent years, has made the current Generative AI boom possible.
-
-To better experiment with and understand how transformers work, we will use samples from the [Hugging Face tutorials](https://huggingface.co/docs/transformers/index), which make it simple and straightforward to start using these tools and techniques without needing to understand the deep technical details of the models beforehand.
 
 ## Introduction to Transformers
 
@@ -200,98 +158,23 @@ All of these applications use various techniques and models to process different
 
 There are ongoing discussions about evolving these applications to reach [AGI](https://en.wikipedia.org/wiki/Artificial_general_intelligence) (Artificial General Intelligence) capabilities using GPTs and similar models. As of mid-2024, this remains a complex and long-term goal that is not yet feasible with the current state of the art in AI and Machine Learning (and may never be).
 
-### How GPTs Work
+## Running GPTs for Inference
 
-- Model training
-  - GPTs are pre-trained models that are trained on large and diverse datasets of texts to compute **patterns** and **probabilities** between the contents present in the training data
-    - For example, a model trained on terabytes of chemical and biological texts may be able to generate correlations between chemical component names and illness symptoms with much more accuracy and reliability than a model trained on terabytes of literature and poetry texts
-    - Generally, the more data and the more diverse the data, the better the model will be able to generate outputs based on the **patterns** and **probabilities** observed in the training data
-    - Current state-of-the-art models are trained on datasets with hundreds of terabytes of texts and other content, and the training process can take weeks or even months to complete even on powerful hardware
-  - The process of training these models involves sophisticated **Machine Learning** techniques, as we studied in the previous lesson
-- Tokens encoding and decoding
-  - All calculations in these models are performed on **tokens** that are _encoded_ and _decoded_ from character strings, rather than on the raw character strings themselves
-  - Each word (or fragment of letters) is broken down into tiny pieces ([n-grams](https://en.wikipedia.org/wiki/N-gram)) that are used to compute the **patterns** and **probabilities** between the contents present in the training data
-  - The _encoding_ process converts character strings into these **tokens**, and the _decoding_ process converts these **tokens** back into character strings
-  - This tokenization process allows the model to handle a wide range of languages and character sets efficiently
-- Transformers
-  - The process of relating tokens to each other in the training data is done by [Transformer](<https://en.wikipedia.org/wiki/Transformer_(machine_learning_model)>) neural networks, which we saw in the previous lesson
-  - These transformers use self-attention mechanisms to capture complex relationships between different parts of the input data
-  - Transformers are used both in the training phase and in the inference phase of these models to calculate the relations between tokens and generate outputs
-- Inference
-  - The process of generating outputs from inputs in a transformer is called inference, and can be accomplished much more quickly for **prompting** than the training phase, since the **patterns** and **probabilities** between the contents present in the training data are already computed and stored in the model
-  - For every **prompt** provided, the model calculates the most probable **output** based on the model data using various decoding strategies
-  - Since the model doesn't "understand" the concepts of _correct_ or _incorrect_, _meaningful_ or _nonsensical_, _helpful_ or _toxic_, it is up to the person or system passing the **prompt** to the model to _judge_ the **output** generated by the model according to their own criteria and standards
-- Prompting
-  - After the model has been trained, it won't execute anything on its own unless it's _prompted_ to do so
-  - The **prompt** being passed to the model may vary greatly in format, depending on the task being executed and the model configurations
-    - For example, a **prompt** for a chatbot may be a question like "_What is your name?_", while a **prompt** for a code generator may be a code snippet like "_for i in range(10): print(i)_"
-    - Most models have certain _structures_ for prompts, allowing for multiple _actors_ to interact inside the model, usually with a "system" actor for answering things that a "user" actor requests from it
-  - The **prompt** is the input that the model will process to generate the output, and it can be as simple as a single word or as complex as a full book
-  - The **prompt** is the most important part of the process of generating outputs from inputs, and it can be _engineered_ in many different ways to _guide_ the model to generate more _meaningful_ outputs
-- Context
-  - GPTs have a limited _context_ maximum length for processing **prompts**, and they can store the chat history in **context** while processing tasks, but this is only temporary storage for the current chat/inference session
-  - When passing too much data in a **prompt**, the model may not be able to process it all correctly, and may even disregard some parts of the **prompt** or of the **training data** based on the model configurations and parameters
-  - The context size usually ranges from a few hundred to a few thousand tokens, with some exceptions up to one million tokens context size
-    - This means that the more information you include in the **prompt**, the less _token space_ the model will have to evaluate the trained data against what is being asked
-  - Managing context effectively is crucial for obtaining accurate and relevant responses from the model
-- Fine tuning
-  - If GPTs trained on random internet text were not adjusted, they would merely regurgitate random internet texts, giving responses that are completely irrelevant, inaccurate, or even nonsensical
-  - To save space in the **context** while improving the accuracy of the outputs, the **fine tuning** process can be used to _guide_ the model to generate more _meaningful_ outputs
-  - In the **fine tuning** process, the model is trained to prioritize reliable sources and accurate information, reducing the likelihood of generating answers based on misinformation or low-quality internet texts
-  - These processes often include incorporating human feedback to correct errors and biases in the model's responses. This iterative process helps in aligning the model's outputs with human values and expectations
-  - Another common practice is to apply targeted training, which involves fine-tuning the model on a specific dataset that is relevant to the desired application
-    - This targeted approach helps the model learn context and nuances pertinent to particular topics or industries
-- RAG
-  - The **RAG** (Retrieval-Augmented Generation) process is a technique that combines a language model's generative abilities with an external information retrieval system
-  - Instead of passing all the context for a question in the prompt, RAG first identifies relevant information from a large database, then incorporates this data into the language model's query
-  - This method significantly improves the model's precision and accuracy, particularly for queries requiring specific information
-  - This is more efficient than passing all the information in the prompt, and is also much simpler than fine-tuning the model with new data
-  - RAG allows models to access up-to-date information without requiring constant retraining, making it particularly useful for applications that need to provide current and accurate information
-
-### Limitations of GPTs
-
-To better understand the capabilities of GPTs, let's highlight some of the most impactful implications of their limitations:
-
-- Lack of "understanding"
-  - Questions like "_Who are you?_" and "_What is your name?_" are not "understood" by GPTs; they simply generate outputs based on patterns and probabilities observed in the training data
-  - If the training data contains texts like "_I am a chatbot_" and "_My name is ChatGPT_" frequently associated with these questions, the GPT will generate outputs like "_I am a chatbot_" and "_My name is ChatGPT_" when asked
-  - If the training data is some amount of text where these questions are frequently associated with other words and phrases, the GPT will generate outputs based on these associations
-    - For example, a GPT trained on the Don Quixote book might generate outputs like "_I am Don Quixote_" and "_My name is Alonso Quijano_" when asked these questions
-  - There are techniques like **Fine Tuning**, **HFRL** (Human Feedback Reinforcement Learning), **Prompt Engineering**, **RAG** (Retrieval-Augmented Generation), and **Control Codes** that can be used to _guide_ GPTs to generate more _meaningful_ outputs, but these are not _learning_ processes; they are _tweaking_ processes
-  - Ultimately, there's no current technique that can make a GPT actually "understand" and "reason" about the **inputs** and **outputs** they're dealing with, as a human mind would do
-- Sensitivity to input
-  - GPTs are very sensitive to the **inputs** they process, and they can generate very different **outputs** based on small changes in input _phrasing_ (or **prompting**)
-  - Asking the same question in different word orders, or even using different languages, can lead to very different outputs, sometimes even conflicting or entirely unrelated
-    - For example, asking "_What is the capital of France?_" and "_France's capital is_" can lead to very different outputs, depending on the model's training
-    - This happens because even if the **semantic** meaning of these questions is almost the same in these two phrasings, the **syntactic** meaning is different, and GPTs are very sensitive to these differences
-    - In practice, every _character_ difference in a **prompt** can move the coordinates in the _text space_ function that computes the output value over that input, regardless of whether that character changes the _semantic_ meaning of the **prompt**
-      - As a loose metaphor, we could imagine a function `f(x)` that gives possibly very different outputs if we give `x = 1`, `x = 1.00000001`, or `x = 1.000000000000...001`, even if the **semantic** meaning of these inputs is almost the same
-- Inconsistency
-  - GPTs may be inconsistent in generating outputs for the same inputs, even if the **inputs** are identical
-  - Since most operations in the **inference** process are based on **probabilities** and **patterns** observed in the training data, the **outputs** can be very different for the same **inputs** based on the **randomness** of the **sampling** process
-  - The results can be more or less deterministic based on the model **configurations** and **parameters** used in the **inference** process
-    - There are parameters like **Temperature**, **Top-K**, **Top-P**, and **Nucleus Sampling** that can be used to **control** the **randomness** of the **sampling** process
-  - A model operating with **greedy search** will generate the same outputs for the same input, while a model operating with **random sampling** (or **temperature** sampling) might often generate different outputs for the same input
-- Incorrect or Nonsensical Outputs (and hallucinations)
-  - As we have seen in previous lessons, GPTs (as we have nowadays) lack on **neural symbolic** reasoning capabilities, thus they are simply outputting whatever is most probable according to the **patterns** and **probabilities** observed in the training data
-  - GPTs can generate incorrect or nonsensical outputs based on the **inputs** they process, especially when the **inputs** are very _ambiguous_ or _open-ended_
-  - This is not necessarily a defect of GPTs, but a consequence of the **patterns** and **probabilities** observed in the training data
-    - For example, a GPT trained on human anatomy may answer the question "How many eyes does a spider have?" with "Two" because it has learned from the training data that most subjects have two eyes, and it might not be clear in the training data that spiders are not humans
-      - Even though this information is incorrect (according to the common definition of spiders), it might be _statistically_ correct to associate "number of eyes (of a living thing)" with "two" based on the training data of that model
-  - This is very common with ambiguous topics, such as person names, locations, historical events, dates, quantities, and other subjects where there may be many different _correct_ answers based on the **context** of the **inputs**
-    - The question "Who is James?" may vary greatly depending on the **context** of the question and the training data of the model
-      - For example, if the training data contains many texts about James Bond, the GPT may answer "James Bond" to this question, even if the question is about another James
-  - The term [Hallucination](https://en.wikipedia.org/wiki/Hallucination_(artificial_intelligence)) is often used in AI to describe these incorrect or nonsensical outputs because they are generated based on **patterns** and **probabilities** observed in the training data, not based on "understanding" or "reasoning" about the **inputs** and **outputs** they're processing
-    - These hallucinations can be dangerous, as GPTs may provide very _convincing_ and _realistic_ outputs based on **patterns** and **probabilities** observed in the training data, even if these outputs are completely incorrect or nonsensical
-- Bias and toxicity
-  - GPTs can generate outputs that are biased and toxic based on the **inputs** they process, especially when the information in the **training data** is biased and toxic
-  - Techniques like **Fine Tuning** and **HFRL** (Human Feedback Reinforcement Learning) can help mitigate this effect by tweaking the responses to be as _helpful_, _harmless_, and _honest_ as possible
-    - However, even human feedback and direct oversight of the training data cannot guarantee that GPTs will generate unbiased and non-toxic outputs, as the very definitions of "helpfulness", "harmlessness", and "honesty" can be highly subjective, depending on various social, cultural, contextual, and personal factors
-  - Current AI models (as of mid 2024) have a strong inclination to generate outputs based on _mild-leftist_ biases, as we have in the conclusions of studies like the [Political Preferences of LLMs](https://arxiv.org/pdf/2402.01789) paper by David Rozado and the [Tracking AI](https://trackingai.org/) website currently maintained by Maxim Lott
-- No (native) access to real-time information
-  - Since GPTs don't "learn" or "improve" when processing inferences, they can't access any information that occurs after their training, unless explicitly provided with this information in the **inputs** or through techniques like **RAG** (Retrieval-Augmented Generation) or similar methods
-  - This means that GPTs can't provide real-time information about anything, such as news, events, weather, stock prices, sports results, etc.
-    - It is possible to provide GPTs with real-time information, but this is separate from the training phase and is not a true learning process; it's simply passing data to the model with the expectation that it will process and return it correctly
+- The resources required to run _inference_ tasks with GPTs are much smaller than the ones required to run _training_ tasks
+  - Still bigger models may require several GPUs and/or a lot of time to run simple textual inference tasks
+- Running inference through APIs can be a good option for many applications, but it may not be the best option for some use cases, like when:
+  - Using sensitive data
+  - Needs reliable uptime
+  - Needs ultra low latency
+  - Running tasks without internet connection
+  - Using custom models
+- API providers may offer a convenient way to run inference tasks, but they may offer limitations, especially in the growth phase of AI applications
+  - Pricing changes
+  - Feature changes
+  - Rate limits
+  - Vendor lock-in
+  - Downtime
+- Running inference tasks locally, although more complex, may remove most of these limitations and offer a more reliable and customizable experience for your applications
 
 ## Tooling for Local LLM Serving
 
@@ -385,10 +268,73 @@ The default models packed with your model loaders are a good starting point for 
   - Examples:
     - `Llama-3.2-90B` which is derived from `Llama-3.1-70B` with additional `20B` parameters for handling images
 
+## Limitations of Local LLM Serving
+
+- Most consumer devices have limited resources, so running large models may not be feasible
+- Small Language Models may be a suitable option in some cases, but still they do require some elevated resources to run, and their performance is still very far from the 10B+ LLMs
+- Being able to run models remotely without relying on unsafe third-party is still a big challenge for the whole AI industry (as of 2025)
+  - Decentralized Computing may pose as the perfect solution for this challenge
+
+## Introduction to Web3
+
+Web3 represents the next evolution of the internet, characterized by decentralization, blockchain technology, and token-based economics. It provides a framework for creating trustless, permissionless applications that can interact with AI Agents.
+
+### Key Concepts of Web3
+
+- Decentralization and distributed systems
+- Blockchain technology and its role in Web3
+- Cryptocurrency and tokenomics
+- Decentralized applications (dApps)
+- Interoperability and cross-chain communication
+
+### Web3 Infrastructure
+
+- Ethereum and other smart contract platforms
+- Layer 2 scaling solutions
+- Decentralized storage (e.g., IPFS, Filecoin)
+- Decentralized identity systems
+
+### Web3 Development Tools
+
+- Web3.js and Ethers.js libraries
+- Truffle and Hardhat development frameworks
+- MetaMask and other wallet integrations
+- IPFS and Pinata for decentralized file storage
+
+## Smart Contracts
+
+Smart contracts are self-executing contracts with the terms of the agreement directly written into code. They run on blockchain networks and can interact with AI Agents to create complex, automated systems.
+
+### Understanding Smart Contracts
+
+- Definition and characteristics of smart contracts
+- How smart contracts work on blockchain networks
+- Benefits and limitations of smart contracts
+- Popular smart contract languages (e.g., Solidity, Vyper)
+
+### Deploying your First Smart Contract
+
+- Create a Fungible Token with [OpenZeppelin Wizard](https://wizard.openzeppelin.com/)
+  - Select the `Premint` checkbox and set the value higher than 0
+- Open the contract in [Remix IDE](https://remix.ethereum.org/)
+- Deploy the contract to the `sepolia` network using your `injected provider` as environment
+- Call the `transfer()` function to transfer tokens to another address
+
+### Key Aspects of Decentralized Applications
+
+- Where the code is hosted?
+- Who has control over the application?
+- Where the data is stored?
+- What if someone wants to manipulate or censor this application?
+
+## Introduction to Decentralized Computing
+
+Decentralized Computing is a new paradigm that allows users to run applications on a decentralized network of computers, instead of a centralized one.
+
+In the next lessons we will cover more examples of Decentralized Computing for solving real problems in the AI industry.
+
 ## Exercise
 
 - Pick your group from previous lesson
-- Create an account on [Hugging Face](https://huggingface.co/)
-- Navigate to the [Model Hub](https://huggingface.co/models)
-- Find a text generation model to download and experiment with
-- Try to run the model locally using Hugging Face Transformers or GPT4All (or any similar tool), at your preference
+- Describe the AI and Web3 components of your project in the `README.md` file
+- Try to come up with at least one really useful feature for each of these technologies for solving real problems within the project that you have envisioned

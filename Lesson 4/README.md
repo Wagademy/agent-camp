@@ -8,7 +8,7 @@ We are going to learn how AI Agents can operate like autonomous entities that ca
 
 We'll explore how these AI Agents differ from simple programmed scripts and how the inference process used to generate textual answers can also guide the "thought" process of these agents.
 
-By the end of this this lesson we'll cover all you need to know about building and deploying your project, from idea to production. We'll explain the process and techniques that we use in the professionals projects that we build in our Software Factory, and how these have helped many previous students to build their projects with success, winning grants, hackathon bounties, prizes, and even getting jobs at top tech companies.
+By the end of this lesson we will see how to empower these agents with Web3 capabilities, and how to use them to interact with smart contracts and other decentralized applications.
 
 ## Prerequisites
 
