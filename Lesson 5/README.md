@@ -34,8 +34,9 @@ We are going to introduce the concept of Web3 and smart contracts, and how these
 - Basic knowledge of TypeScript programming language syntax
   - [TypeScript official tutorial](https://www.typescriptlang.org/docs/)
   - [Learn X in Y minutes](https://learnxinyminutes.com/docs/typescript/)
-- An account at [OpenAI Platform](https://platform.openai.com/)
-  - To run API Commands on the platform, set up [billing](https://platform.openai.com/account/billing/overview) and add at least **5 USD** credits to your account
+- Basic knowledge of Solidity programming language syntax
+  - [Solidity official tutorial](https://docs.soliditylang.org/en/latest/)
+  - [Learn X in Y minutes](https://learnxinyminutes.com/docs/solidity/)
 
 ## Decentralized AI
 
@@ -44,6 +45,7 @@ The capabilities of Generative AI models can be extended to decentralized applic
 ## ORA Protocol
 
 - [ORA Protocol](https://ora.io/)
+- [Onchain AI Oracles](https://www.ora.io/app/opml/)
 
 ### Optimistic ML
 
@@ -52,239 +54,13 @@ The capabilities of Generative AI models can be extended to decentralized applic
 - Similar to optimistic rollups
 - Example [opML powered AI](https://www.ora.io/app/opml/openlm)
 
-### Implementing Decentralized AI Model Inferences
+### Resilient Model Services (RMS)
 
-- The [OAO repository](https://github.com/ora-io/OAO)
-- Implementing the `IAIOracle.sol` interface
-- Building smart contracts [with ORA's AI Oracle](https://docs.ora.io/doc/ai-oracle/ai-oracle/build-with-ai-oracle)
-- Handling the [Callback gas limit estimation](https://docs.ora.io/doc/ai-oracle/ai-oracle/callback-gas-limit-estimation) for each model ID
-- [Reference list](https://docs.ora.io/doc/ai-oracle/ai-oracle/references) for models and addresses for different networks
-
-### Sample Implementation
-
-- Open the `Prompt.sol` file in the `contracts` folder in [Remix IDE](https://remix.ethereum.org/)
-- Add `callbackGasLimit[11] = 5_000_000;` in the `constructor()` function
-- Deploy the contract to the `sepolia` network using your `injected provider` as environment
-- Pass the AI Oracle Proxy address to the `Prompt` contract deployment function
-  - The address for the `sepolia` network is `0x0A0f4321214BB6C7811dD8a71cF587bdaF03f0A0`
-- Call the `estimateFee` function passing the model ID `11` to check the fee for the inference
-- Copy the value and set it as the transaction value (in wei)
-- Call the `calculateAIResult` targeting the model ID `11` with your prompt
-- When the transaction is confirmed, it might take a little while until the callback is executed and the result is available
-  - When the callback is executed, the result is stored in the storage of the `Prompt` contract
-  - The `promp` function can be called to retrieve the result, by passing the model ID and prompt text again
-
-### Extending the AI Oracle
-
-A troll is sitting in front of the contract guarding the vault.
-
-- The deployer of the smart contract will deposit ETH into the contract
-  - The value is locked while a boolean is set to `false`, the default state
-- The deployer will set the riddle for the troll
-- Anyone can attempt to solve the riddle by calling the `solveRiddle` function
-  - If the riddle is solved correctly, the boolean is set to `true` and the deposit can be withdrawn
-  - For solving the riddle, the string passed should be considered a valid solution by the AI model
-- Example riddle: `Thirty white horses on a red hill, First they champ, Then they stamp, Then they stand still.`
-- Using a [starting template](https://hardhat.org/hardhat-runner/docs/getting-started) for the `Lock.sol` contract
-- Implementing the AI Oracle interface
-
-  ```solidity
-  import "./interfaces/IAIOracle.sol";
-  import "./AIOracleCallbackReceiver.sol";
-
-  contract Lock is AIOracleCallbackReceiver {
-      // modelId => callback gasLimit
-      mapping(uint256 => uint64) public callbackGasLimit;
-
-      struct AIOracleRequest {
-          address sender;
-          uint256 modelId;
-          bytes input;
-          bytes output;
-      }
-
-      // requestId => AIOracleRequest
-      mapping(uint256 => AIOracleRequest) public requests;
-  ```
-
-- Implementing the riddle logic
-
-  ```solidity
-  bool public unlockFunds;
-  string public riddle;
-  address public winner;
-  string public constant PROMPT_CONFIG =
-      "I am going to give you a riddle marked as RIDDLE and a proposed solution marked as SOLUTION. If the solution provided is acceptable for the riddle, answer with the word CORRECT, and nothing else. If the solution provided is not acceptable, answer WRONG, and nothing else.";
-  uint256 public constant MODEL_ID = 11;
-  ```
-
-- Implementing the `constructor()` function
-
-  ```solidity
-  constructor(IAIOracle _aiOracle, string memory _riddle)
-        payable
-        AIOracleCallbackReceiver(_aiOracle)
-    {
-        callbackGasLimit[MODEL_ID] = 5_000_000;
-        riddle = _riddle;
-    }
-  ```
-
-- Implementing the `solveRiddle()` function
-
-  ```solidity
-  function solveRiddle(string calldata solution) external payable {
-     require(winner == address(0), "Winner is already set!");
-     bytes memory fullPrompt = abi.encodePacked(
-         PROMPT_CONFIG,
-         " RIDDLE: ",
-         riddle,
-         " SOLUTION: ",
-         solution
-     );
-     uint256 requestId = aiOracle.requestCallback{value: msg.value}(
-         MODEL_ID,
-         fullPrompt,
-         address(this),
-         callbackGasLimit[MODEL_ID],
-         ""
-     );
-     AIOracleRequest storage request = requests[requestId];
-     request.input = fullPrompt;
-     request.sender = msg.sender;
-     request.modelId = MODEL_ID;
-  }
-  ```
-
-- Implementing the oracle callback function
-
-  ```solidity
-    function estimateFee(uint256 modelId) public view returns (uint256) {
-        return aiOracle.estimateFee(modelId, callbackGasLimit[modelId]);
-    }
-
-  // the callback function, only the AI Oracle can call this function
-    function aiOracleCallback(
-        uint256 requestId,
-        bytes calldata output,
-        bytes calldata callbackData
-    ) external override onlyAIOracleCallback {
-        // since we do not set the callbackData in this example, the callbackData should be empty
-        require(winner == address(0), "Winner is already set!");
-        AIOracleRequest storage request = requests[requestId];
-        require(request.sender != address(0), "request not exists");
-        request.output = output;
-        if (keccak256(output) == keccak256(bytes("CORRECT"))) {
-            winner = request.sender;
-            unlockFunds = true;
-        }
-  }
-  ```
-
-- Modifying the `withdraw()` function to allow the winner to withdraw the funds when the riddle is solved
-
-  ```solidity
-  function withdraw() public {
-      require(unlockFunds, "You can't withdraw yet");
-      emit Withdrawal(address(this).balance, block.timestamp);
-      payable(winner).transfer(address(this).balance);
-  }
-  ```
-
-- Full code:
-
-```solidity
-// SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.28;
-
-import "./interfaces/IAIOracle.sol";
-import "./AIOracleCallbackReceiver.sol";
-
-contract Lock is AIOracleCallbackReceiver {
-    event Withdrawal(uint amount, uint when);
-
-    // modelId => callback gasLimit
-    mapping(uint256 => uint64) public callbackGasLimit;
-
-    struct AIOracleRequest {
-        address sender;
-        uint256 modelId;
-        bytes input;
-        bytes output;
-    }
-
-    // requestId => AIOracleRequest
-    mapping(uint256 => AIOracleRequest) public requests;
-
-    bool public unlockFunds;
-    string public riddle;
-    address public winner;
-    string public constant PROMPT_CONFIG =
-        "I am going to give you a riddle marked as RIDDLE and a proposed solution marked as SOLUTION. If the solution provided is acceptable for the riddle, answer with the word CORRECT, and nothing else. If the solution provided is not acceptable, answer WRONG, and nothing else.";
-    uint256 public constant MODEL_ID = 11;
-
-    constructor(IAIOracle _aiOracle, string memory _riddle)
-        payable
-        AIOracleCallbackReceiver(_aiOracle)
-    {
-        callbackGasLimit[MODEL_ID] = 5_000_000;
-        riddle = _riddle;
-    }
-
-    function solveRiddle(string calldata solution) external payable {
-        require(winner == address(0), "Winner is already set!");
-        bytes memory fullPrompt = abi.encodePacked(
-            PROMPT_CONFIG,
-            " RIDDLE: ",
-            riddle,
-            " SOLUTION: ",
-            solution
-        );
-        uint256 requestId = aiOracle.requestCallback{value: msg.value}(
-            MODEL_ID,
-            fullPrompt,
-            address(this),
-            callbackGasLimit[MODEL_ID],
-            ""
-        );
-        AIOracleRequest storage request = requests[requestId];
-        request.input = fullPrompt;
-        request.sender = msg.sender;
-        request.modelId = MODEL_ID;
-    }
-
-    function estimateFee(uint256 modelId) public view returns (uint256) {
-        return aiOracle.estimateFee(modelId, callbackGasLimit[modelId]);
-    }
-
-    // the callback function, only the AI Oracle can call this function
-    function aiOracleCallback(
-        uint256 requestId,
-        bytes calldata output,
-        bytes calldata callbackData
-    ) external override onlyAIOracleCallback {
-        // since we do not set the callbackData in this example, the callbackData should be empty
-        require(winner == address(0), "Winner is already set!");
-        AIOracleRequest storage request = requests[requestId];
-        require(request.sender != address(0), "request not exists");
-        request.output = output;
-        if (keccak256(output) == keccak256(bytes("CORRECT"))) {
-            winner = request.sender;
-            unlockFunds = true;
-        }
-    }
-
-    function withdraw() public {
-        require(unlockFunds, "You can't withdraw yet");
-        emit Withdrawal(address(this).balance, block.timestamp);
-        payable(winner).transfer(address(this).balance);
-    }
-}
-```
-
-- Deploy the contract to the `sepolia` network using your `injected provider` as environment
-- Call the `solveRiddle()` function passing the correct solution and the correct value of ETH
-- When the transaction is confirmed and the callback is executed, call the `withdraw()` function to withdraw the funds
+- [RMS (Resilient Model Services)](https://docs.ora.io/doc/resilient-model-services-rms/overview) is an AI service designed to provide computation for all scenarios
+  - It ensurer resilient (stable, reliable, fault tolerant, and secure) AI computation
+  - Powered by opML
+- AI API service that integrates seamlessly with existing AI frameworks
+- Replace your existing AI API provider with RMS API Key and point it to the RMS endpoint
 
 ### Initial Model Offerings
 
@@ -294,13 +70,54 @@ contract Lock is AIOracleCallbackReceiver {
 - Token holders share revenue of the IMO AI model
 - The [IMO launch blog post](https://mirror.xyz/orablog.eth/xYMD27tN23ppbKCluB9faytF_W6M1hKXTuKcfkm3D50) and the [first IMO implementation](https://mirror.xyz/orablog.eth/GSjMm-qC4WWsduGqCISSvA1IxicJbyRDES_bl7-Tt2o)
 
-## Introduction to Decentralized AI Agents
+### Perpetual Agents
 
-- AI Agents
-- Using LLMs as "reasoning engines" for decision making workflows
-- Automating tasks beyond textual output
-- Using AI Agents to interact with the world
-- Decentralizing AI Agents execution with Web3 tools
+- The [opAgent](https://mirror.xyz/orablog.eth/sEFCQVmERNDIsiPDs2LUnU-__SdLmKERpCKcEP7hO08) use case
+  - Agents running without relying on a centralized provider
+  - Token economic incentives for hosting the agent
+- Lifecycle
+  - Genesis Transaction: The initial creation transaction that establishes the agent's existence on the blockchain
+  - Asset Binding: Permanent linkage of digital assets to the agent through smart contracts
+    -Identity Formation: Creation of a unique, immutable identity that cannot be replicated or falsified
+  - Autonomous Initialization: Self-bootstrapping process that establishes initial operating parameters
+
+### Tokenized AI Generated Content (AIGC)
+
+- The [ERC-7007 standard](https://eips.ethereum.org/EIPS/eip-7007)
+- [ERC-721](https://eips.ethereum.org/EIPS/eip-721) extension
+- Verifiable AIGC tokens using ZK and opML
+- Verifiable "AI Creativity" with the [7007 Protocol](https://www.7007.ai/)
+
+### Running AI Text Generation Tasks with Decentralized AI Model Inferences
+
+- The [OAO repository](https://github.com/ora-io/OAO)
+- Implementing the `IAIOracle.sol` interface
+- Building smart contracts [with ORA's AI Oracle](https://docs.ora.io/doc/ai-oracle/ai-oracle/build-with-ai-oracle)
+- Handling the [Callback gas limit estimation](https://docs.ora.io/doc/ai-oracle/ai-oracle/callback-gas-limit-estimation) for each model ID
+- [Reference list](https://docs.ora.io/doc/ai-oracle/ai-oracle/references) for models and addresses for different networks
+
+### Experimenting with the OAO Sample Prompt Contract Implementation
+
+- Open the [OAO repository](https://github.com/ora-io/OAO) in [Remix IDE](https://remix.ethereum.org/)
+  - Click on the hamburger menu for the `WORKSPACES` section
+  - Select the `Clone` option
+  - Pase the URL of the repository in the `Repository URL` field
+    - URL: <https://github.com/ora-io/OAO>
+- Open the `Prompt.sol` file in the `contracts` folder and compile it
+- Go for the `Deploy & run transactions` tab and select the `injected provider` environment
+- Make sure that your wallet is connected to the `sepolia` network
+- Click on the `At Address` button and paste the example `Prompt` contract address (`0xe75af5294f4CB4a8423ef8260595a54298c7a2FB` for the `sepolia` network)
+- Scroll down to the `Deployed Contracts` section and click on the `Prompt` contract
+- Click on the `estimateFee` function and set the model ID to `11`
+- Copy the returned value and set it as the transaction value (in wei)
+  - Scroll up to see the `VALUE` field, and make sure that the dropdown is set to `Wei`
+- Click on the `calculateAIResult` function and set the model ID to `11` and the prompt text to `"What is the capital of France?"`
+- Click on the red `Transact` button and confirm the popup on your wallet to execute the transaction
+- Wait for the transaction to be confirmed
+  - It might take a little while until the callback is executed and the result is available
+- When the callback is executed, the result is stored in the storage of the `Prompt` contract
+  - The `prompt` function can be called to retrieve the result, by passing the model ID and prompt text again
+- Try this process with a different prompt, for example: `"List all capitals that Brazil had in the past"`
 
 ## Final Exercise
 
