@@ -106,7 +106,7 @@ The capabilities of Generative AI models can be extended to decentralized applic
 - Open the `Prompt.sol` file in the `contracts` folder and compile it
 - Go for the `Deploy & run transactions` tab and select the `injected provider` environment
 - Make sure that your wallet is connected to the `sepolia` network
-- Click on the `At Address` button and paste the example `Prompt` contract address (`0xe75af5294f4CB4a8423ef8260595a54298c7a2FB` for the `sepolia` network)
+- Go for the the `At Address` button, paste the example `Prompt` contract address (`0xe75af5294f4CB4a8423ef8260595a54298c7a2FB` for the `sepolia` network), and then click on the `At Address` button
 - Scroll down to the `Deployed Contracts` section and click on the `Prompt` contract
 - Click on the `estimateFee` function and set the model ID to `11`
 - Copy the returned value and set it as the transaction value (in wei)
